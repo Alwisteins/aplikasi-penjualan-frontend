@@ -35,7 +35,7 @@ export default function Form() {
     const url = `http://localhost:8080/api/v1`;
     await axios.post(url, { item: name, stock, sold, date, type });
   };
-  
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <h3 className="text-xl text-center font-semibold text-green-500 dark:text-white">
@@ -82,7 +82,7 @@ export default function Form() {
         </div>
       </div>
       <div className="w-full">
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="m-auto bg-green-400 hover:bg-green-200">Submit</Button>
       </div>
     </form>
   );
