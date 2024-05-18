@@ -3,7 +3,7 @@ import axios from "axios";
 export function AddButton({ setModalOpen }) {
   return (
     <button
-      className="bg-green-500 text-white px-2 py-1 rounded mr-2"
+      className="bg-green-400 text-white py-2 px-3 rounded-md mr-2"
       onClick={() => setModalOpen(true)}
     >
       Tambah
