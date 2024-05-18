@@ -1,14 +1,14 @@
 import axios from "axios";
 
-export function AddButton(){
-    return (
-        <button
-          className="bg-green-500 text-white px-2 py-1 rounded mr-2"
-         
-        >
-          Tambah
-        </button>
-      );
+export function AddButton({ setModalOpen }) {
+  return (
+    <button
+      className="bg-green-500 text-white px-2 py-1 rounded mr-2"
+      onClick={() => setModalOpen(true)}
+    >
+      Tambah
+    </button>
+  );
 }
 
 export function EditButton({ id, data }) {
