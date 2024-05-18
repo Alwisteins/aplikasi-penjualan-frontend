@@ -4,12 +4,10 @@ import { AddButton } from "../buttons/Buttons";
 import Form from "../form/Form";
 
 export function ModalForm() {
-  const [openModal, setOpenModal] = useState(true);
-  const [email, setEmail] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   function onCloseModal() {
     setOpenModal(false);
-    setEmail("");
   }
 
   return (
