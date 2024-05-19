@@ -1,7 +1,24 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
 import ProductTable from "../../components/table/Table";
 import { AddButton } from "../../components/buttons/Buttons";
 
 export default function Create() {
+  const [products, setProducts] = useState([]);
+  const url = "http://localhost:8080/api/v1/";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url);
+        setProducts(response.data.sales);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, [products]);
   return (
     <div className="p-5 space-y-10">
       <div>
@@ -14,7 +31,7 @@ export default function Create() {
         </p>
       </div>
       <AddButton />
-      <ProductTable />
+      <ProductTable products={products} setProducts={setProducts} />
     </div>
   );
 }

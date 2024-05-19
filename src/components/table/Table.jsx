@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import { EditButton, DeleteButton } from "../buttons/Buttons";
 
 const tableHead = [
@@ -12,24 +10,7 @@ const tableHead = [
   "Action",
 ];
 
-const ProductTable = () => {
-  const [products, setProducts] = useState([]);
-
-  const url = "http://localhost:8080/api/v1/";
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(url);
-        setProducts(response.data.sales);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-      }
-    };
-
-    fetchData();
-  }, [products]);
-
+const ProductTable = ({ products, setProducts }) => {
   const handleDelete = (id) => {
     setProducts(products.filter((product) => product.id !== id));
   };
