@@ -1,13 +1,23 @@
+import { useState } from "react";
 import axios from "axios";
+import { ModalForm } from "../modal/Modal";
 
-export function AddButton({ setModalOpen }) {
+export function AddButton() {
+  const [openModal, setOpenModal] = useState(false);
+
+  function onCloseModal() {
+    setOpenModal(false);
+  }
   return (
-    <button
-      className="bg-green-400 text-white py-2 px-3 rounded-md mr-2"
-      onClick={() => setModalOpen(true)}
-    >
-      Tambah
-    </button>
+    <>
+      <button
+        className="bg-green-400 text-white py-2 px-3 rounded-md mr-2"
+        onClick={() => setOpenModal(true)}
+      >
+        Tambah
+      </button>
+      <ModalForm openModal={openModal} onCloseModal={onCloseModal} />
+    </>
   );
 }
 

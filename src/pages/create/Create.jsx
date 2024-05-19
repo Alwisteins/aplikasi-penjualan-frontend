@@ -1,5 +1,5 @@
 import ProductTable from "../../components/table/Table";
-import { ModalForm } from "../../components/modal/Modal";
+import { AddButton } from "../../components/buttons/Buttons";
 
 export default function Create() {
   return (
@@ -13,7 +13,7 @@ export default function Create() {
           halaman ini
         </p>
       </div>
-      <ModalForm />
+      <AddButton />
       <ProductTable />
     </div>
   );
