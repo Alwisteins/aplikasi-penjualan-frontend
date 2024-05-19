@@ -28,7 +28,7 @@ const ProductTable = () => {
     };
 
     fetchData();
-  }, []);
+  }, [products]);
 
   const handleDelete = (id) => {
     setProducts(products.filter((product) => product.id !== id));
@@ -59,7 +59,7 @@ const ProductTable = () => {
                 </td>
                 <td className="px-4 py-2 border-b">{item.type}</td>
                 <td className="px-4 py-2 border-b">
-                  <EditButton id={item.id} data={item} />
+                  <EditButton id={item.id} />
                   <DeleteButton id={item.id} onDelete={handleDelete} />
                 </td>
               </tr>

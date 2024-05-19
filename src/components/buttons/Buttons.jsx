@@ -5,9 +5,10 @@ import { ModalForm } from "../modal/Modal";
 export function AddButton() {
   const [openModal, setOpenModal] = useState(false);
 
-  function onCloseModal() {
+  const onCloseModal = () => {
     setOpenModal(false);
-  }
+  };
+
   return (
     <>
       <button
@@ -16,30 +17,41 @@ export function AddButton() {
       >
         Tambah
       </button>
-      <ModalForm openModal={openModal} onCloseModal={onCloseModal} />
+      <ModalForm
+        openModal={openModal}
+        onCloseModal={onCloseModal}
+        form="create"
+      />
     </>
   );
 }
 
-export function EditButton({ id, data }) {
-  const url = `http://localhost:8080/api/v1/${id}`;
+export function EditButton({ id }) {
+  const [openModal, setOpenModal] = useState(false);
+
+  const onCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const handleEdit = async () => {
-    try {
-      await axios.put(url, data);
-      console.log(`Item with ID ${id} has been updated`);
-    } catch (error) {
-      console.error("Error updating data: ", error);
-    }
+    setOpenModal(true);
   };
 
   return (
-    <button
-      className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
-      onClick={handleEdit}
-    >
-      Edit
-    </button>
+    <>
+      <button
+        className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
+        onClick={handleEdit}
+      >
+        Edit
+      </button>
+      <ModalForm
+        openModal={openModal}
+        onCloseModal={onCloseModal}
+        form="edit"
+        id={id}
+      />
+    </>
   );
 }
 

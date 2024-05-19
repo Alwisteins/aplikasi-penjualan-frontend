@@ -12,7 +12,7 @@ const validateForm = ({ name, stock, sold, type }) => {
   return isNameValid && isTypeValid && isStokValid && isSoldValid;
 };
 
-export default function Form() {
+export default function Form({ form, id }) {
   const [name, setName] = useState("");
   const [stock, setStock] = useState("");
   const [sold, setSold] = useState("");
@@ -32,14 +32,18 @@ export default function Form() {
     isValid == false && alert("Please fill out the form correctly.");
 
     // post valid data into api
-    const url = `http://localhost:8080/api/v1`;
-    await axios.post(url, { item: name, stock, sold, date, type });
+    const isIdExist = id ? id : "";
+    const url = `http://localhost:8080/api/v1/${isIdExist}`;
+    console.log(url);
+    isIdExist
+      ? await axios.put(url, { item: name, stock, sold, date, type })
+      : await axios.post(url, { item: name, stock, sold, date, type });
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <h3 className="text-xl text-center font-semibold text-green-500 dark:text-white">
-        Tambahkan Data Penjualan Baru
+        {form == "create" ? "Tambah data penjualan" : "Edit data penjualan"}
       </h3>
       <div>
         <InputField
@@ -82,7 +86,12 @@ export default function Form() {
         </div>
       </div>
       <div className="w-full">
-        <Button type="submit" className="m-auto bg-green-400 hover:bg-green-200">Submit</Button>
+        <Button
+          type="submit"
+          className="m-auto bg-green-400 hover:bg-green-200"
+        >
+          Submit
+        </Button>
       </div>
     </form>
   );
