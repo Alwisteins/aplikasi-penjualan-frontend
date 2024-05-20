@@ -13,20 +13,23 @@ export default function Search() {
     const fetchData = async () => {
       try {
         const response = await axios.get(url);
-        setProducts(response.data.sales);
+        setProducts(response.data.sales)
+        setFilteredProducts(response.data.sales);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
     };
 
     fetchData();
-  }, [products]);
+  }, []);
 
   const handleSearch = (query) => {
     const filter = products.filter((product) =>
       product.item.toLocaleLowerCase().includes(query.toLocaleLowerCase())
     );
-    setFilteredProducts(filter);
+    query.trim() == ""
+      ? setFilteredProducts(products)
+      : setFilteredProducts(filter);
   };
   return (
     <div className="p-5 space-y-10">
@@ -43,7 +46,7 @@ export default function Search() {
         <FilterButton />
         <Searchbar onSearch={handleSearch} />
       </div>
-      <ProductTable products={filteredProducts} setProducts={setProducts} />
+      <ProductTable products={filteredProducts} setProducts={setFilteredProducts} />
     </div>
   );
 }
