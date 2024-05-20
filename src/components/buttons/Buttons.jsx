@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { ModalForm, ModalFilter } from "../modal/Modal";
 
-export function FilterButton() {
+export function FilterButton({ onFilter }) {
   const [openModal, setOpenModal] = useState(false);
 
   const onCloseModal = () => {
@@ -17,7 +17,7 @@ export function FilterButton() {
       >
         Filter
       </button>
-      <ModalFilter openModal={openModal} onCloseModal={onCloseModal} />
+      <ModalFilter openModal={openModal} onCloseModal={onCloseModal} onFilter={onFilter} />
     </>
   );
 }

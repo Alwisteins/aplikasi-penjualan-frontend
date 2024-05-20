@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal, Select } from "flowbite-react";
 import Form from "../form/Form";
 
@@ -15,9 +15,13 @@ export function ModalForm({ openModal, onCloseModal, form, id }) {
   );
 }
 
-export function ModalFilter({ openModal, onCloseModal }) {
+export function ModalFilter({ openModal, onCloseModal, onFilter }) {
   const [buttonFilter, setButtonFilter] = useState(false);
   const [selectFilter, setSelectFilter] = useState("");
+
+  useEffect(() => {
+    onFilter(buttonFilter, selectFilter);
+  }, [buttonFilter, selectFilter]);
 
   return (
     <>
@@ -35,7 +39,7 @@ export function ModalFilter({ openModal, onCloseModal }) {
                     ? "bg-green-200 border-green-400"
                     : "bg-slate-100 border-slate-300"
                 } border py-1 px-4 rounded-xl`}
-                onClick={() => setButtonFilter(true)}
+                onClick={() => setButtonFilter(!buttonFilter)}
               >
                 a-z
               </button>
@@ -44,8 +48,8 @@ export function ModalFilter({ openModal, onCloseModal }) {
                 onChange={(e) => setSelectFilter(e.target.value)}
                 required
               >
-                <option>Terbaru</option>
-                <option>Terlama</option>
+                <option value="terbaru">Terbaru</option>
+                <option value="terlama">Terlama</option>
               </Select>
             </div>
           </div>

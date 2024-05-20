@@ -13,7 +13,7 @@ export default function Search() {
     const fetchData = async () => {
       try {
         const response = await axios.get(url);
-        setProducts(response.data.sales)
+        setProducts(response.data.sales);
         setFilteredProducts(response.data.sales);
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -31,6 +31,33 @@ export default function Search() {
       ? setFilteredProducts(products)
       : setFilteredProducts(filter);
   };
+
+  const handleFilter = (sortByName, sortByDate) => {
+    let sortedProducts = [...filteredProducts];
+    let filterOption = sortByName ? '' : sortByDate;
+
+    // Sort by name if sortByName is true
+    sortedProducts = sortByName
+      ? sortedProducts.sort((a, b) => {
+          const nameA = a.item.toLocaleLowerCase();
+          const nameB = b.item.toLocaleLowerCase();
+          return nameA.localeCompare(nameB);
+        })
+      : products;
+
+    // Sort by date if sortByDate is not an empty string
+    sortedProducts =
+      filterOption.trim() !== ""
+        ? [...filteredProducts].sort((a, b) => {
+            const dateA = new Date(a.transaction_date);
+            const dateB = new Date(b.transaction_date);
+            return sortByDate === "terbaru" ? dateB - dateA : dateA - dateB;
+          })
+        : sortedProducts;
+
+    setFilteredProducts(sortedProducts);
+  };
+
   return (
     <div className="p-5 space-y-10">
       <div>
@@ -43,10 +70,13 @@ export default function Search() {
         </p>
       </div>
       <div className="flex w-full">
-        <FilterButton />
+        <FilterButton onFilter={handleFilter} />
         <Searchbar onSearch={handleSearch} />
       </div>
-      <ProductTable products={filteredProducts} setProducts={setFilteredProducts} />
+      <ProductTable
+        products={filteredProducts}
+        setProducts={setFilteredProducts}
+      />
     </div>
   );
 }
