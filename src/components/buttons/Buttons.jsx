@@ -2,28 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { ModalForm, ModalFilter } from "../modal/Modal";
 
-export function OptionButton({ name }) {
-  const [isActive, setIsActive] = useState(false);
-  return (
-    <button
-      className={`${
-        isActive
-          ? "bg-green-200 border-green-400"
-          : "bg-slate-100 border-slate-300"
-      } border py-1 px-4 rounded-xl`}
-      onClick={() => setIsActive(!isActive)}
-    >
-      {name}
-    </button>
-  );
-}
-
 export function FilterButton() {
   const [openModal, setOpenModal] = useState(false);
 
   const onCloseModal = () => {
     setOpenModal(false);
   };
+
   return (
     <>
       <button

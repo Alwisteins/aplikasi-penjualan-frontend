@@ -1,5 +1,5 @@
+import { useState } from "react";
 import { Modal, Select } from "flowbite-react";
-import { OptionButton } from "../buttons/Buttons";
 import Form from "../form/Form";
 
 export function ModalForm({ openModal, onCloseModal, form, id }) {
@@ -16,6 +16,9 @@ export function ModalForm({ openModal, onCloseModal, form, id }) {
 }
 
 export function ModalFilter({ openModal, onCloseModal }) {
+  const [buttonFilter, setButtonFilter] = useState(false);
+  const [selectFilter, setSelectFilter] = useState("");
+
   return (
     <>
       <Modal show={openModal} size="md" onClose={onCloseModal} popup>
@@ -26,8 +29,21 @@ export function ModalFilter({ openModal, onCloseModal }) {
               Filter result
             </h1>
             <div className="w-full flex justify-evenly">
-              <OptionButton name="a-z" />
-              <Select required>
+              <button
+                className={`${
+                  buttonFilter
+                    ? "bg-green-200 border-green-400"
+                    : "bg-slate-100 border-slate-300"
+                } border py-1 px-4 rounded-xl`}
+                onClick={() => setButtonFilter(true)}
+              >
+                a-z
+              </button>
+              <Select
+                value={selectFilter}
+                onChange={(e) => setSelectFilter(e.target.value)}
+                required
+              >
                 <option>Terbaru</option>
                 <option>Terlama</option>
               </Select>
